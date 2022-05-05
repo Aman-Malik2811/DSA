@@ -1,30 +1,23 @@
 class MyStack {
     Deque<Integer> stack1=new ArrayDeque<>();
-    Deque<Integer> stack2=new ArrayDeque<>();
-    int top=-1;
     public MyStack() {
         
     }
     
     public void push(int x) {
         stack1.add(x);
-        top=x;
+        int size=stack1.size();
+        while(size-->1){
+            stack1.add(stack1.remove());
+        }
     }
     
     public int pop() {
-        int ans=-1;
-        while(stack1.size()>1){
-            top=stack1.remove();
-            stack2.add(top);
-        }
-        ans=stack1.remove();
-        stack1=stack2;
-        stack2=new ArrayDeque<>();
-        return ans;
+        return stack1.remove();
     }
     
     public int top() {
-       return top;
+       return stack1.peek();
     }
     
     public boolean empty() {
