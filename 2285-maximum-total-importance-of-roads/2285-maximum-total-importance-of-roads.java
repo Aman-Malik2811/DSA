@@ -1,20 +1,17 @@
 class Solution {
     public long maximumImportance(int n, int[][] roads) {
-        List<Integer>[] graph=new ArrayList[n];
-        for(int i=0;i<n;i++){
-            graph[i]=new ArrayList<>();
-        }
+       int[] deg=new int[n];
         for(int[] road:roads){
             int st=road[0];
             int end=road[1];
-            graph[st].add(end);
-            graph[end].add(st);
+            deg[st]++;
+            deg[end]++;
         }
-        Arrays.sort(graph,(a,b)->b.size()-a.size());
+        Arrays.sort(deg);
         long ans=0;
         long val=n;
-        for(int i=0;i<n;i++){
-            ans+=graph[i].size()*val;
+        for(int i=n-1;i>=0;i--){
+            ans+=deg[i]*val;
             val--;
         }
         return ans;
