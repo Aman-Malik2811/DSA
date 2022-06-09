@@ -15,33 +15,26 @@
  */
 class Solution {
     public List<TreeNode> generateTrees(int n) {
-        return helper(1,n);
+        return util(1,n,new HashMap<Integer, List<TreeNode>>());
     }
-    private List<TreeNode> helper(int st,int en){
-        if(st>en){
-            List<TreeNode> ans=new ArrayList<>();
-            ans.add(new TreeNode(-1));
-            return ans;
-        }
-        if(st==en){
-            List<TreeNode> ans=new ArrayList<>();
-            ans.add(new TreeNode(st));
-            return ans;
-        }
-        List<TreeNode> ans=new ArrayList<>();
-        for(int i=st;i<=en;i++){
-            List<TreeNode> left=helper(st,i-1);
-            List<TreeNode> right=helper(i+1,en);
-            for(TreeNode lef:left){
-                for(TreeNode rig:right){
-                    TreeNode curr=new TreeNode(i);
-                    curr.left=lef.val==-1?null:lef;
-                    curr.right=rig.val==-1?null:rig;
-                    ans.add(curr);
+    
+    private List<TreeNode> util(int l, int r, Map<Integer, List<TreeNode>> dp){
+        if(l > r)   return Collections.singletonList(null);
+        
+        int key = (l<<16) + r;
+        if(dp.containsKey(key)) return dp.get(key);
+        
+        List<TreeNode> ans = new ArrayList<>();
+        for(int i=l;i<=r; i++){
+            List<TreeNode> leftCombs = util(l,i-1,dp),  rightCombs = util(i+1,r,dp);
+            for(TreeNode left: leftCombs){
+                for(TreeNode right: rightCombs){
+                    TreeNode newComb = new TreeNode(i);
+                    newComb.left = left;    newComb.right = right;
+                    ans.add(newComb);
                 }
-               
             }
         }
-        return ans;
+        return dp.computeIfAbsent(key, k->ans);
     }
 }
