@@ -14,28 +14,27 @@
  * }
  */
 class Solution {
+    TreeNode fs=null;
+    TreeNode ss=null;
+    TreeNode itr=new TreeNode(Integer.MIN_VALUE);
     public void recoverTree(TreeNode root) {
-        List<TreeNode> inorder=new ArrayList<>();
-        helper(inorder,root);
-        for(int i=1;i<inorder.size();i++){
-            TreeNode curr=inorder.get(i);
-            TreeNode prev=inorder.get(i-1);
-            if(curr.val>prev.val)continue;
-            else{
-                int temp=prev.val;
-                while(i<inorder.size()&&prev.val>inorder.get(i).val){
-                    curr=inorder.get(i++);
-                }
-                prev.val=curr.val;
-                curr.val=temp;
-                return;
-            }
-        }
+        traverse(root);
+        int temp=fs.val;
+        fs.val=ss.val;
+        ss.val=temp;
     }
-    private void helper(List<TreeNode> list,TreeNode root){
+    public void traverse(TreeNode root){
         if(root==null)return;
-        helper(list,root.left);
-        list.add(root);
-        helper(list,root.right);
+        traverse(root.left);
+        
+        if(fs==null&&itr.val>root.val){
+            fs=itr;
+        }
+        if(fs!=null&&itr.val>root.val){
+            ss=root;
+        }
+        
+        itr=root;
+        traverse(root.right);
     }
 }
