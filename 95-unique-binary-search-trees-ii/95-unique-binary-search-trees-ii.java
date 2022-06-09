@@ -14,12 +14,10 @@
  * }
  */
 class Solution {
-    Map<String,List<TreeNode>> map=new HashMap<>();
     public List<TreeNode> generateTrees(int n) {
         return helper(1,n);
     }
     private List<TreeNode> helper(int st,int en){
-        String key=st+" "+en;
         if(st>en){
             List<TreeNode> ans=new ArrayList<>();
             ans.add(new TreeNode(-1));
@@ -30,7 +28,6 @@ class Solution {
             ans.add(new TreeNode(st));
             return ans;
         }
-        if(map.containsKey(key))return map.get(key);
         List<TreeNode> ans=new ArrayList<>();
         for(int i=st;i<=en;i++){
             List<TreeNode> left=helper(st,i-1);
@@ -45,7 +42,6 @@ class Solution {
                
             }
         }
-        map.put(key,ans);
         return ans;
     }
 }
