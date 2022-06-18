@@ -5,18 +5,17 @@ class Solution {
         int ans=0;
         for(int i=0;i<words.length;i++){
             String curr=words[i];
-            int temp=0;
+            map.put(curr,1);
             for(int j=0;j<curr.length();j++){
-                int t=0;
+                
                 StringBuilder st = new StringBuilder(curr);
                 String str = st.deleteCharAt(j).toString();
-                if(map.containsKey(str)){
-                    t+=map.get(str);
+                if(map.containsKey(str)&&map.get(str)+1>map.get(curr)){
+                    map.put(curr,map.get(str)+1);
                 }
-                temp=Math.max(t,temp);
+            
             }
-            map.put(curr,temp+1);
-            ans=Math.max(ans,temp+1);
+           ans=Math.max(ans,map.get(curr));
         }
         //System.out.println(map);
         return ans;
