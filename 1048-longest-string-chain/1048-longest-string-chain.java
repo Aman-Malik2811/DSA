@@ -2,10 +2,7 @@ class Solution {
     public int longestStrChain(String[] words) {
         Arrays.sort(words,(a,b)->a.length()-b.length());
         Map<String,Integer> map=new HashMap<>();
-        for(String word:words){
-            //System.out.println(word);
-            map.put(word,1);
-        }
+       
         int ans=0;
         for(int i=0;i<words.length;i++){
             String curr=words[i];
