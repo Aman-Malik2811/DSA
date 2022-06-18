@@ -2,14 +2,14 @@ class Solution {
     public int longestStrChain(String[] words) {
         Arrays.sort(words,(a,b)->a.length()-b.length());
         Map<String,Integer> map=new HashMap<>();
-       
         int ans=0;
         for(int i=0;i<words.length;i++){
             String curr=words[i];
             int temp=0;
             for(int j=0;j<curr.length();j++){
                 int t=0;
-                String str=curr.substring(0,j)+curr.substring(j+1);
+                StringBuilder st = new StringBuilder(curr);
+                String str = st.deleteCharAt(j).toString();
                 if(map.containsKey(str)){
                     t+=map.get(str);
                 }
