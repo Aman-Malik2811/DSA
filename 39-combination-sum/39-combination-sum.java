@@ -8,10 +8,10 @@ class Solution {
     private void helper(List<List<Integer>> ans,List<Integer> temp,int[] nums,int tar,int i){
         if(tar<0||i>nums.length-1)return;
         if(tar==0){
-            if(!st.contains(temp)){
+           
                 ans.add(new ArrayList<>(temp));
-                st.add(new ArrayList<>(temp));
-            }
+            
+            
             return;
         }
         int curr=nums[i];
