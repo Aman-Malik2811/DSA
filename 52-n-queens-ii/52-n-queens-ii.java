@@ -1,12 +1,12 @@
 class Solution {
+    int count=0;
     public int totalNQueens(int n) {
-        List<List<String>> ans=new ArrayList<>();
         List<String> temp=new ArrayList<>();
         StringBuilder sb=new StringBuilder();
         for(int i=0;i<n;i++)sb.append(".");
         for(int i=0;i<n;i++)temp.add(sb.toString());
-        helper(ans,temp,n,0);
-        return ans.size();
+        helper(temp,n,0);
+        return count;
     }
     private boolean valid(List<String> board,int row,int col){
         //currCol
@@ -23,9 +23,9 @@ class Solution {
         }
         return true;
     }
-    private void helper(List<List<String>> ans,List<String> board,int n,int row){
+    private void helper(List<String> board,int n,int row){
         if(row==n){
-            ans.add(new ArrayList<>(board));
+            count++;
             return;
         }
         for(int i=0;i<n;i++){
@@ -33,7 +33,7 @@ class Solution {
                 char[] currRow=board.get(row).toCharArray();
                 currRow[i]='Q';
                 board.set(row,new String(currRow));
-                helper(ans,board,n,row+1);
+                helper(board,n,row+1);
                 currRow[i]='.';
                 board.set(row,new String(currRow));
             }
