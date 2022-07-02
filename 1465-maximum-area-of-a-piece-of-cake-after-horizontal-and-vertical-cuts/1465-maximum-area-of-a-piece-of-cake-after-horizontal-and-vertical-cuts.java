@@ -15,8 +15,8 @@ class Solution {
             maxHeight=Math.max(maxHeight,hc[i+1]-hc[i]);
         }
         //System.out.println(maxWidth+" "+maxHeight);
-        long width=Math.max(maxWidth,vc[0])%mod;
-        long height=Math.max(maxHeight,hc[0])%mod;
+        long width=Math.max(maxWidth,vc[0]);
+        long height=Math.max(maxHeight,hc[0]);
         long ans=width*height;
         return (int)(ans%mod);
     }
