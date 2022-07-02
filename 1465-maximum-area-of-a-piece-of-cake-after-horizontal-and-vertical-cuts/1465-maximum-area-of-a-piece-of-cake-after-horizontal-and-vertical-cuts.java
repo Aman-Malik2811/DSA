@@ -1,23 +1,14 @@
 class Solution {
-    int mod=1000000007;
-    public int maxArea(int h, int w, int[] hc, int[] vc) {
-        Arrays.sort(hc);
-        Arrays.sort(vc);
-        int n=vc.length,m=hc.length;
-        long maxWidth=w-vc[n-1];
-        //System.out.println(maxWidth+" ");
-        for(int i=n-2;i>=0;i--){
-            maxWidth=Math.max(maxWidth,vc[i+1]-vc[i]);
-        }
-        long maxHeight=h-hc[m-1];
-        //System.out.println(maxHeight);
-        for(int i=m-2;i>=0;i--){
-            maxHeight=Math.max(maxHeight,hc[i+1]-hc[i]);
-        }
-        //System.out.println(maxWidth+" "+maxHeight);
-        long width=Math.max(maxWidth,vc[0]);
-        long height=Math.max(maxHeight,hc[0]);
-        long ans=width*height;
-        return (int)(ans%mod);
-    }
+    
+    public int maxArea(int h, int w, int[] hCuts, int[] vCuts) {
+    Arrays.sort(hCuts);
+    Arrays.sort(vCuts);
+    int max_h = Math.max(hCuts[0], h - hCuts[hCuts.length - 1]);
+    int max_v = Math.max(vCuts[0], w - vCuts[vCuts.length - 1]);  
+    for (int i = 0; i < hCuts.length - 1; ++i)
+        max_h = Math.max(max_h, hCuts[i + 1] - hCuts[i]);
+    for (int i = 0; i < vCuts.length - 1; ++i)
+        max_v = Math.max(max_v, vCuts[i + 1] - vCuts[i]);        
+    return (int)((long)max_h * max_v % 1000000007);        
+}
 }
