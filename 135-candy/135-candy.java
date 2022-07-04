@@ -1,23 +1,23 @@
 class Solution {
-    public int candy(int[] r) {
-       int[] temp=new int[r.length];
-       Arrays.fill(temp,1);
-       PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
-       int i=0;
-       int ans=0;
-       for(int val:r){pq.add(new int[]{val,i});i++;};
-       while(pq.size()>0){
-           int[] rem=pq.remove();
-           int id=rem[1],a=0,b=0;
-           if(id+1<r.length&&r[id+1]<r[id]){
-               a=temp[id+1];
-           }
-           if(id-1>=0&&r[id-1]<r[id]){
-               b=temp[id-1];
-           }
-           temp[id]=Math.max(a,b)+1;
-           ans+=temp[id];
-       }
-       return ans;
+     public int candy(int[] ratings) {
+      int n = ratings.length;
+      int[] res = new int[n];
+      Arrays.fill(res, 1);
+      for(int i = 1; i < n; i++){
+        if(ratings[i] > ratings[i - 1]){
+          res[i] = res[i - 1] + 1;            
+        }  
+      }    
+      
+      for(int i = n - 1; i > 0; i--){
+        if(ratings[i - 1] > ratings[i]){
+          res[i - 1] = Math.max(res[i] + 1, res[i - 1]);    
+        }
+      }
+      
+      int sum = 0;
+      for(int r: res) sum += r;
+      
+      return sum;
     }
 }
