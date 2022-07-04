@@ -3,8 +3,8 @@ class Solution {
        int[] temp=new int[r.length];
        Arrays.fill(temp,1);
        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
-       Set<Integer> st=new HashSet<>();
        int i=0;
+       int ans=0;
        for(int val:r){pq.add(new int[]{val,i});i++;};
        while(pq.size()>0){
            int[] rem=pq.remove();
@@ -16,9 +16,8 @@ class Solution {
                b=temp[id-1];
            }
            temp[id]=Math.max(a,b)+1;
+           ans+=temp[id];
        }
-       int ans=0;
-       for(int val:temp){ans+=val;}
        return ans;
     }
 }
