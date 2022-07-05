@@ -12,7 +12,7 @@ class Solution {
             while(map.containsKey(key+1)){
                 temp++;
                 key=key+1;
-                map.remove(key);
+                //map.remove(key);
             }
             ans=Math.max(ans,temp);
         }
