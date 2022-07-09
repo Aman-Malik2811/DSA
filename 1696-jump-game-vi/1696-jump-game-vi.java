@@ -16,17 +16,4 @@ class Solution {
         }
         return dp[0];
     }
-    // private int helper(int[] nums,int i,int k,int n){
-    //     if(i==n){
-    //         return 0;
-    //     }
-    //     if(i==n-1)return nums[i];
-    //     if(dp[i]!=null)return dp[i];
-    //     int max=Integer.MIN_VALUE;
-    //     for(int j=i+1;j<=Math.min(n-1,i+k);j++){
-    //         int temp=helper(nums,j,k,n);
-    //         max=Math.max(max,temp);
-    //     }
-    //     return dp[i]=max+nums[i];
-    // }
 }
