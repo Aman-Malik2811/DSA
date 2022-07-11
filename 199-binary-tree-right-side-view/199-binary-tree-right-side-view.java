@@ -14,20 +14,19 @@
  * }
  */
 class Solution {
-    public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> ans=new ArrayList<>();
-        helper(ans,root,1);
-        return ans;
+    private static TreeMap<Integer, Integer> intMap = new TreeMap<Integer, Integer>();
+    public void dfs(TreeNode node, int depth) {
+        if(node == null) return; 
+        intMap.put(depth, node.val);
+		
+        dfs(node.left, depth + 1);
+        dfs(node.right, depth + 1);
     }
-    private void helper(List<Integer> ans,TreeNode root,int ht){
-        if(root==null)return;
-        if(ans.size()<ht){
-            ans.add(root.val);
-        }
-        else{
-            ans.set(ht-1,root.val);
-        }
-        helper(ans,root.left,ht+1);
-        helper(ans,root.right,ht+1);
+    
+    public List<Integer> rightSideView(TreeNode root) {
+        intMap.clear(); 
+        dfs(root, 0);
+        
+        return new ArrayList<Integer>(intMap.values());
     }
 }
