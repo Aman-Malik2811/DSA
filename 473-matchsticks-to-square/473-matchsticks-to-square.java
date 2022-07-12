@@ -1,24 +1,33 @@
 class Solution {
-    public boolean makesquare(int[] arr) {
-        Arrays.sort(arr);
-        int max=0;
-        for(int val:arr)max+=val;
-        if(max%4!=0)return false;
-        return helper(arr,new int[]{0,0,0,0},arr.length-1,max/4);
-    }
-    private boolean helper(int[] arr,int[] sides,int i,int max){
-        if(i<0){
-            if(sides[0]==sides[1]&&sides[1]==sides[2]&&sides[2]==sides[3]){
-                return true;
-            }
+    public boolean makesquare(int[] M) {
+        Arrays.sort(M);
+        int total = 0;
+        for (int i = 0; i < M.length; i++)
+            total += M[i];
+        side = total / 4;
+        if ((float)total / 4 > side || M[M.length-1] > side)
             return false;
-        }
-        for(int c=0;c<4;c++){
-            sides[c]+=arr[i];
-            if(sides[c]<=max&&helper(arr,sides,i-1,max)){
+        return btrack(M.length-1, side, 0, M);
+    }
+    private int side;
+    private boolean btrack(int i, int space, int done, int[] M) {
+        if (done == 3)
+            return true;
+        for (; i >= 0; i--) {
+            int num = M[i];
+            boolean res;
+            if (num > space)
+                continue;
+            M[i] = side + 1;
+            if (num == space)
+                res = btrack(M.length-2, side, done+1, M);
+            else
+                res = btrack(i-1, space-num, done, M);
+            if (res)
                 return true;
-            }
-            sides[c]-=arr[i];
+            M[i] = num;
+            while (i > 0 && M[i-1] == num)
+                i--;
         }
         return false;
     }
